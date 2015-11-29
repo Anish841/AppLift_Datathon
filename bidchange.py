@@ -6,7 +6,8 @@ __author__ = 'pratap'
 
 import  pandas as pd
 import numpy as np
-df = pd.read_csv('pandasoutput.csv')
+# df = pd.read_csv('pandasoutput_full.csv')
+df = pd.read_csv('pandasoutput_small.csv')
 
 rowcount= len(df)
 
@@ -53,9 +54,9 @@ totalfr = pd.concat([cdata,wbidwfr,zdata])
 
 totalfr['NExcbid']= totalfr['Excbid']*totalfr['Fracexbid']
 
-totalfr.to_csv('experiment.csv',index=False)
+totalfr.to_csv('experiment_small.csv',index=False)
 
-
+# totalfr.to_csv('experiment_full.csv',index=False)
 
 
 

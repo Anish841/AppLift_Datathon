@@ -8,11 +8,11 @@
 import graphlab as gl
 
 
-train=gl.SFrame('applift_train_final.csv')
-test=gl.SFrame('applift_test_final.csv')
+# train=gl.SFrame('applift_train_final.csv')
+# test=gl.SFrame('applift_test_final.csv')
 
-# train=gl.SFrame('applift_train_datas.csv')
-# test=gl.SFrame('applift_train_datas.csv')
+train=gl.SFrame('applift_train_datas.csv')
+test=gl.SFrame('applift_train_datas.csv')
 
 
 train['Outcome']=train['Outcome'].astype(float)
@@ -52,9 +52,9 @@ df = pd.read_csv('appliftoutfact.csv')
 
 result = df.sort(['PredOutcome'],ascending = [0])
 
-# result.to_csv('pandasoutput.csv',index=False)
+result.to_csv('pandasoutput_small.csv',index=False)
 
-result.to_csv('pandasoutput29.csv',index=False)
+# result.to_csv('pandasoutput_full.csv',index=False)
 
 
 

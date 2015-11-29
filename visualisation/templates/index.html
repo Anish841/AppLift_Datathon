@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Python Flask Bucket List App</title>
+ 
+ 
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ 	
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<script>
+	function getmap(form)
+	{
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (xhttp.readyState == 4 && xhttp.status == 200) {
+		      document.getElementById("map").innerHTML = xhttp.responseText;
+		    }
+		  };
+		  xhttp.open("POST", "/test", true);
+		  var formData=new FormData(form);
+		  xhttp.send(formData);
+	}
+</script>
+<body>
+	<nav class="navbar navbar-inverse">
+	<a class="navbar-brand" href="#">Heat Maps</a>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav">
+      	 <li><a href="/category">Traffic Type</a></li>
+      </ul>
+    </div>
+	</nav>
+
+	<div class = "jumbotron col-lg-8 col-lg-offset-2 img-rounded">
+	<form action="/test"  method="post" class="form-horizontal">
+	<div class="container"> 
+		<div class="form-group">
+			<div class="col-md-4 control-label"> Select Campaign ID </div>
+
+			<div class="col-md-4 "> 
+				<select class = "form-control" name = "selvalue">
+					<option value = '48331'>48331</option>
+					<option value = '50043'>50043</option>
+					<option value = '50111'>50111</option>
+					<option value = '51251'>51251</option>
+					<option value = '52191'>52191</option>
+					<option value = '52195'>52195</option>
+					<option value = '52607'>52607</option>
+					<option value = '53483'>53483</option>
+					<option value = '53611'>53611</option>
+					<option value = '53803'>53803</option>
+					<option value = '54183'>54183</option>
+					<option value = '54331'>54331</option>
+					<option value = '54835'>54835</option>
+					<option value = '55783'>55783</option>
+					<option value = '56035'>56035</option>
+					<option value = '56079'>56079</option>
+					<option value = '56159'>56159</option>
+					<option value = '56283'>56283</option>
+					<option value = '57103'>57103</option>
+					<option value = '57139'>57139</option>
+					<option value = '57199'>57199</option>
+					<option value = '57815'>57815</option>
+					<option value = '57819'>57819</option>
+					<option value = '57831'>57831</option>
+					<option value = '57939'>57939</option>
+					<option value = '58835'>58835</option>
+					<option value = '58843'>58843</option>
+					<option value = '59959'>59959</option>
+					<option value = '59963'>59963</option>
+					<option value = '60427'>60427</option>
+					<option value = '60435'>60435</option>
+					<option value = '60707'>60707</option>
+					<option value = '61031'>61031</option>
+					<option value = '61131'>61131</option>
+					<option value = '61139'>61139</option>
+					<option value = '61147'>61147</option>
+					<option value = '61247'>61247</option>
+					<option value = '61251'>61251</option>
+					<option value = '61279'>61279</option>
+					<option value = '61291'>61291</option>
+					<option value = '61295'>61295</option>
+					<option value = '61299'>61299</option>
+					<option value = '61303'>61303</option>
+					<option value = '61315'>61315</option>
+					<option value = '61427'>61427</option>
+					<option value = '61687'>61687</option>
+					<option value = '61719'>61719</option>
+					<option value = '61739'>61739</option>
+					<option value = '61811'>61811</option>
+					<option value = '61863'>61863</option>
+					<option value = '62095'>62095</option>
+					<option value = '62419'>62419</option>
+					<option value = '62439'>62439</option>
+					<option value = '62443'>62443</option>
+					<option value = '62491'>62491</option>
+					<option value = '62499'>62499</option>
+					<option value = '62715'>62715</option>
+					<option value = '62995'>62995</option>
+					<option value = '63147'>63147</option>
+					<option value = '63515'>63515</option>
+					<option value = '63711'>63711</option>
+					<option value = '63851'>63851</option>
+					<option value = '63963'>63963</option>
+					<option value = '63967'>63967</option>
+					<option value = '64175'>64175</option>
+					<option value = '64287'>64287</option>
+					<option value = '64435'>64435</option>
+					<option value = '64467'>64467</option>
+					<option value = '64483'>64483</option>
+					<option value = '64855'>64855</option>
+					<option value = '65107'>65107</option>
+					<option value = '65115'>65115</option>
+					<option value = '65487'>65487</option>
+					<option value = '65499'>65499</option>
+					<option value = '65503'>65503</option>
+					<option value = '65523'>65523</option>
+					<option value = '65531'>65531</option>
+					<option value = '65535'>65535</option>
+					<option value = '65991'>65991</option>
+					<option value = '66003'>66003</option>
+					<option value = '66123'>66123</option>
+					<option value = '66139'>66139</option>
+					<option value = '66151'>66151</option>
+					<option value = '66159'>66159</option>
+					<option value = '66251'>66251</option>
+					<option value = '66263'>66263</option>
+					<option value = '66275'>66275</option>
+					<option value = '66279'>66279</option>
+					<option value = '66283'>66283</option>
+					<option value = '66383'>66383</option>
+					<option value = '66499'>66499</option>
+					<option value = '66515'>66515</option>
+					<option value = '66519'>66519</option>
+					<option value = '66523'>66523</option>
+					<option value = '66531'>66531</option>
+					<option value = '66535'>66535</option>
+					<option value = '66539'>66539</option>
+					<option value = '66571'>66571</option>
+					<option value = '66599'>66599</option>
+					<option value = '66651'>66651</option>
+					<option value = '66791'>66791</option>
+					<option value = '66799'>66799</option>
+					<option value = '66823'>66823</option>
+					<option value = '66827'>66827</option>
+					<option value = '66835'>66835</option>
+					<option value = '66859'>66859</option>
+					<option value = '67003'>67003</option>
+					<option value = '67007'>67007</option>
+					<option value = '67055'>67055</option>
+					<option value = '67059'>67059</option>
+					<option value = '67063'>67063</option>
+					<option value = '67067'>67067</option>
+					<option value = '67091'>67091</option>
+					<option value = '67111'>67111</option>
+					<option value = '67163'>67163</option>
+					<option value = '67167'>67167</option>
+					<option value = '67179'>67179</option>
+					<option value = '67279'>67279</option>
+					<option value = '67323'>67323</option>
+					<option value = '67355'>67355</option>
+					<option value = '67407'>67407</option>
+					<option value = '67415'>67415</option>
+					<option value = '67463'>67463</option>
+					<option value = '67475'>67475</option>
+					<option value = '67595'>67595</option>
+					<option value = '67615'>67615</option>
+					<option value = '67699'>67699</option>
+					<option value = '67731'>67731</option>
+					<option value = '67847'>67847</option>
+					<option value = '67879'>67879</option>
+					<option value = '67903'>67903</option>
+					<option value = '67907'>67907</option>
+					<option value = '67911'>67911</option>
+					<option value = '68035'>68035</option>
+					<option value = '68111'>68111</option>
+					<option value = '68119'>68119</option>
+					<option value = '68143'>68143</option>
+					<option value = '68331'>68331</option>
+					<option value = '68339'>68339</option>
+					<option value = '68343'>68343</option>
+					<option value = '68347'>68347</option>
+					<option value = '68351'>68351</option>
+					<option value = '68355'>68355</option>
+					<option value = '68427'>68427</option>
+					<option value = '68439'>68439</option>
+					<option value = '68443'>68443</option>
+					<option value = '68523'>68523</option>
+					<option value = '68559'>68559</option>
+					<option value = '68567'>68567</option>
+					<option value = '68591'>68591</option>
+					<option value = '68595'>68595</option>
+					<option value = '68603'>68603</option>
+					<option value = '68619'>68619</option>
+					<option value = '68627'>68627</option>
+					<option value = '68671'>68671</option>
+					<option value = '68699'>68699</option>
+					<option value = '68735'>68735</option>
+					<option value = '68739'>68739</option>
+					<option value = '68747'>68747</option>
+					<option value = '68751'>68751</option>
+					<option value = '68755'>68755</option>
+					<option value = '68759'>68759</option>
+					<option value = '68763'>68763</option>
+					<option value = '68771'>68771</option>
+					<option value = '68775'>68775</option>
+					<option value = '68835'>68835</option>
+					<option value = '68847'>68847</option>
+					<option value = '68851'>68851</option>
+					<option value = '68859'>68859</option>
+					<option value = '68879'>68879</option>
+					<option value = '68947'>68947</option>
+					<option value = '68951'>68951</option>
+					<option value = '68979'>68979</option>
+					<option value = '68983'>68983</option>
+					<option value = '69003'>69003</option>
+					<option value = '69007'>69007</option>
+					<option value = '69011'>69011</option>
+					<option value = '69015'>69015</option>
+					<option value = '69019'>69019</option>
+					<option value = '69027'>69027</option>
+					<option value = '69031'>69031</option>
+					<option value = '69035'>69035</option>
+					<option value = '69079'>69079</option>
+					<option value = '69095'>69095</option>
+					<option value = '69099'>69099</option>
+					<option value = '69103'>69103</option>
+					<option value = '69191'>69191</option>
+					<option value = '69255'>69255</option>
+					<option value = '69283'>69283</option>
+					<option value = '69335'>69335</option>
+					<option value = '69355'>69355</option>
+					<option value = '69391'>69391</option>
+					<option value = '69395'>69395</option>
+					<option value = '69459'>69459</option>
+					<option value = '69467'>69467</option>
+					<option value = '69487'>69487</option>
+					<option value = '69643'>69643</option>
+					<option value = '69671'>69671</option>
+					<option value = '69675'>69675</option>
+					<option value = '69683'>69683</option>
+					<option value = '69691'>69691</option>
+					<option value = '69711'>69711</option>
+					<option value = '69719'>69719</option>
+					<option value = '69891'>69891</option>
+					<option value = '69903'>69903</option>
+					<option value = '69927'>69927</option>
+					<option value = '69939'>69939</option>
+					<option value = '69995'>69995</option>
+					<option value = '70011'>70011</option>
+					<option value = '70019'>70019</option>
+					<option value = '70063'>70063</option>
+					<option value = '70067'>70067</option>
+					<option value = '70071'>70071</option>
+					<option value = '70075'>70075</option>
+					<option value = '70079'>70079</option>
+					<option value = '70083'>70083</option>
+					<option value = '70107'>70107</option>
+					<option value = '70131'>70131</option>
+					<option value = '70191'>70191</option>
+					<option value = '70203'>70203</option>
+					<option value = '70207'>70207</option>
+					<option value = '70211'>70211</option>
+					<option value = '70215'>70215</option>
+					<option value = '70219'>70219</option>
+					<option value = '70223'>70223</option>
+					<option value = '70239'>70239</option>
+					<option value = '70247'>70247</option>
+					<option value = '70251'>70251</option>
+					<option value = '70311'>70311</option>
+					<option value = '70315'>70315</option>
+					<option value = '70319'>70319</option>
+					<option value = '70323'>70323</option>
+					<option value = '70327'>70327</option>
+					<option value = '70335'>70335</option>
+					<option value = '70339'>70339</option>
+					<option value = '70347'>70347</option>
+					<option value = '70351'>70351</option>
+					<option value = '70355'>70355</option>
+					<option value = '70363'>70363</option>
+					<option value = '70367'>70367</option>
+					<option value = '70415'>70415</option>
+					<option value = '70419'>70419</option>
+					<option value = '70423'>70423</option>
+					<option value = '70427'>70427</option>
+					<option value = '70435'>70435</option>
+					<option value = '70439'>70439</option>
+					<option value = '70443'>70443</option>
+					<option value = '70447'>70447</option>
+					<option value = '70451'>70451</option>
+					<option value = '70475'>70475</option>
+					<option value = '70539'>70539</option>
+					<option value = '70551'>70551</option>
+					<option value = '70571'>70571</option>
+					<option value = '70583'>70583</option>
+					<option value = '70587'>70587</option>
+					<option value = '70591'>70591</option>
+					<option value = '70595'>70595</option>
+					<option value = '70627'>70627</option>
+					<option value = '70647'>70647</option>
+					<option value = '70651'>70651</option>
+					<option value = '70691'>70691</option>
+					<option value = '70707'>70707</option>
+					<option value = '70743'>70743</option>
+					<option value = '70747'>70747</option>
+					<option value = '70755'>70755</option>
+					<option value = '70759'>70759</option>
+					<option value = '70763'>70763</option>
+					<option value = '70767'>70767</option>
+					<option value = '70771'>70771</option>
+					<option value = '70775'>70775</option>
+					<option value = '70779'>70779</option>
+					<option value = '70783'>70783</option>
+					<option value = '70787'>70787</option>
+					<option value = '70791'>70791</option>
+					<option value = '70799'>70799</option>
+					<option value = '70807'>70807</option>
+					<option value = '70811'>70811</option>
+					<option value = '70815'>70815</option>
+					<option value = '70819'>70819</option>
+					<option value = '70823'>70823</option>
+					<option value = '70827'>70827</option>
+					<option value = '70831'>70831</option>
+					<option value = '70835'>70835</option>
+					<option value = '70839'>70839</option>
+					<option value = '70855'>70855</option>
+					<option value = '70915'>70915</option>
+					<option value = '70923'>70923</option>
+					<option value = '70939'>70939</option>
+					<option value = '70943'>70943</option>
+					<option value = '70955'>70955</option>
+					<option value = '71007'>71007</option>
+					<option value = '71027'>71027</option>
+					<option value = '71031'>71031</option>
+					<option value = '71043'>71043</option>
+					<option value = '71059'>71059</option>
+					<option value = '71063'>71063</option>
+					<option value = '71067'>71067</option>
+					<option value = '71071'>71071</option>
+					<option value = '71075'>71075</option>
+					<option value = '71079'>71079</option>
+					<option value = '71083'>71083</option>
+					<option value = '71087'>71087</option>
+					<option value = '71091'>71091</option>
+					<option value = '71095'>71095</option>
+					<option value = '71099'>71099</option>
+					<option value = '71103'>71103</option>
+					<option value = '71107'>71107</option>
+					<option value = '71111'>71111</option>
+					<option value = '71115'>71115</option>
+					<option value = '71119'>71119</option>
+					<option value = '71127'>71127</option>
+					<option value = '71139'>71139</option>
+					<option value = '71143'>71143</option>
+					<option value = '71147'>71147</option>
+					<option value = '71151'>71151</option>
+					<option value = '71155'>71155</option>
+					<option value = '71159'>71159</option>
+					<option value = '71175'>71175</option>
+					<option value = '71187'>71187</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-4 control-label"> Select Outcome </div>
+			<div class="col-md-4"> 
+				<select class = "form-control" name="outcome">
+					<option value="0"> 0 </option>
+					<option value="c"> C </option>
+					<option value="w"> W </option>
+				<select>
+			</div>
+			<div class="form-group">
+				<input class = "btn-lg	 btn-primary" type = "submit" value = "Submit">
+			</div>
+
+		</div>
+
+	</div>
+	</form>
+	</div>
+	<div class="row">
+		<div id="map" class="col-md-12">
+		</div>
+	</div>
+
+</body>
+</html>

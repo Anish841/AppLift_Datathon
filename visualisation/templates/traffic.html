@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Python Flask Bucket List App</title>
+ 
+ 
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ 	
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<script>
+
+</script>
+<body>
+	<nav class="navbar navbar-inverse">
+		<a class="navbar-brand" href="#">Heat Maps</a>
+	</nav>
+	<div class = "jumbotron col-md-8 col-md-offset-2 img-rounded">
+	<form action="/traffictype" method="post" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Select Traffic Type : </label>
+			<div class="col-md-4">
+				<select class="form-control" name="traffic_type">
+					<option value="site"> Site </option>
+					<option value="app"> App </option>
+				<select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Select Outcome : </label>
+			<div class="col-md-4">
+				<select class="form-control" name="outcome">
+					<option value="0"> 0 </option>
+					<option value="c"> C </option>
+					<option value="w"> W </option>
+				<select>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<div class="col-md-2 col-md-offset-2">
+				<input type="submit" value="Submit" class = "btn-lg btn-primary">
+			</div>
+		</div>
+	</form>
+</div>
+</body>

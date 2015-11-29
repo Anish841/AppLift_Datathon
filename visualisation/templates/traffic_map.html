@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}
+
+#canvas {
+}
+
+#canvas-svg {
+}
+
+
+.land {
+  fill: #222;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+#tooltip-container {
+  position: absolute;
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  border: 1px solid;
+  display: none;
+}
+
+.tooltip_key {
+  font-weight: bold;
+}
+
+.tooltip_value {
+  margin-left: 20px;
+  float: right;
+}
+
+</style>
+
+<div id="tooltip-container"></div>
+
+<div id="canvas-svg"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script>
+var map = {};
+map["DZA"] = "Algeria";
+map["AGO"] = "Angola";
+map["EGY"] = "Egypt";
+map["BGD"] = "Bangladesh";
+map["NER"] = "Niger";
+map["LIE"] = "Liechtenstein";
+map["NAM"] = "Namibia";
+map["BGR"] = "Bulgaria";
+map["BOL"] = "Bolivia (Plurinational State of)";
+map["GHA"] = "Ghana";
+map["CCK"] = "Cocos (Keeling) Islands";
+map["PAK"] = "Pakistan";
+map["CPV"] = "Cabo Verde";
+map["JOR"] = "Jordan";
+map["LBR"] = "Liberia";
+map["LBY"] = "Libya";
+map["MYS"] = "Malaysia";
+map["IOT"] = "British Indian Ocean Territory";
+map["PRI"] = "Puerto Rico";
+map["MYT"] = "Mayotte";
+map["PRK"] = "Korea (Democratic People's Republic of)";
+map["PSE"] = "Palestine, State of";
+map["TZA"] = "Tanzania, United Republic of";
+map["BWA"] = "Botswana";
+map["KHM"] = "Cambodia";
+map["UMI"] = "United States Minor Outlying Islands";
+map["TTO"] = "Trinidad and Tobago";
+map["PRY"] = "Paraguay";
+map["HKG"] = "Hong Kong";
+map["SAU"] = "Saudi Arabia";
+map["LBN"] = "Lebanon";
+map["SVN"] = "Slovenia";
+map["BFA"] = "Burkina Faso";
+map["SVK"] = "Slovakia";
+map["MRT"] = "Mauritania";
+map["HRV"] = "Croatia";
+map["CHL"] = "Chile";
+map["CHN"] = "China";
+map["KNA"] = "Saint Kitts and Nevis";
+map["JAM"] = "Jamaica";
+map["SMR"] = "San Marino";
+map["GIB"] = "Gibraltar";
+map["DJI"] = "Djibouti";
+map["GIN"] = "Guinea";
+map["FIN"] = "Finland";
+map["URY"] = "Uruguay";
+map["VAT"] = "Holy See";
+map["STP"] = "Sao Tome and Principe";
+map["SYC"] = "Seychelles";
+map["NPL"] = "Nepal";
+map["CXR"] = "Christmas Island";
+map["LAO"] = "Lao People's Democratic Republic";
+map["YEM"] = "Yemen";
+map["BVT"] = "Bouvet Island";
+map["ZAF"] = "South Africa";
+map["KIR"] = "Kiribati";
+map["PHL"] = "Philippines";
+map["SXM"] = "Sint Maarten (Dutch part)";
+map["ROU"] = "Romania";
+map["VIR"] = "Virgin Islands (U.S.)";
+map["SYR"] = "Syrian Arab Republic";
+map["MAC"] = "Macao";
+map["NIC"] = "Nicaragua";
+map["MLT"] = "Malta";
+map["KAZ"] = "Kazakhstan";
+map["TCA"] = "Turks and Caicos Islands";
+map["PYF"] = "French Polynesia";
+map["NIU"] = "Niue";
+map["DMA"] = "Dominica";
+map["GBR"] = "United Kingdom of Great Britain and Northern Ireland";
+map["BEN"] = "Benin";
+map["GUF"] = "French Guiana";
+map["BEL"] = "Belgium";
+map["MSR"] = "Montserrat";
+map["TGO"] = "Togo";
+map["DEU"] = "Germany";
+map["GUM"] = "Guam";
+map["LKA"] = "Sri Lanka";
+map["SSD"] = "South Sudan";
+map["FLK"] = "Falkland Islands (Malvinas)";
+map["PCN"] = "Pitcairn";
+map["BES"] = "Bonaire, Sint Eustatius and Saba";
+map["GUY"] = "Guyana";
+map["CRI"] = "Costa Rica";
+map["COK"] = "Cook Islands";
+map["MAR"] = "Morocco";
+map["MNP"] = "Northern Mariana Islands";
+map["LSO"] = "Lesotho";
+map["HUN"] = "Hungary";
+map["TKM"] = "Turkmenistan";
+map["SUR"] = "Suriname";
+map["NLD"] = "Netherlands";
+map["BMU"] = "Bermuda";
+map["HMD"] = "Heard Island and McDonald Islands";
+map["TCD"] = "Chad";
+map["GEO"] = "Georgia";
+map["MNE"] = "Montenegro";
+map["MNG"] = "Mongolia";
+map["MHL"] = "Marshall Islands";
+map["MTQ"] = "Martinique";
+map["BLZ"] = "Belize";
+map["NFK"] = "Norfolk Island";
+map["MMR"] = "Myanmar";
+map["AFG"] = "Afghanistan";
+map["BDI"] = "Burundi";
+map["VGB"] = "Virgin Islands (British)";
+map["BLR"] = "Belarus";
+map["BLM"] = "Saint Barthélemy";
+map["GRD"] = "Grenada";
+map["TKL"] = "Tokelau";
+map["GRC"] = "Greece";
+map["GRL"] = "Greenland";
+map["SHN"] = "Saint Helena, Ascension and Tristan da Cunha";
+map["AND"] = "Andorra";
+map["MOZ"] = "Mozambique";
+map["TJK"] = "Tajikistan";
+map["THA"] = "Thailand";
+map["HTI"] = "Haiti";
+map["MEX"] = "Mexico";
+map["ZWE"] = "Zimbabwe";
+map["LCA"] = "Saint Lucia";
+map["IND"] = "India";
+map["LVA"] = "Latvia";
+map["BTN"] = "Bhutan";
+map["VCT"] = "Saint Vincent and the Grenadines";
+map["VNM"] = "Viet Nam";
+map["NOR"] = "Norway";
+map["CZE"] = "Czech Republic";
+map["ATF"] = "French Southern Territories";
+map["ATG"] = "Antigua and Barbuda";
+map["FJI"] = "Fiji";
+map["HND"] = "Honduras";
+map["MUS"] = "Mauritius";
+map["DOM"] = "Dominican Republic";
+map["LUX"] = "Luxembourg";
+map["ISR"] = "Israel";
+map["FSM"] = "Micronesia (Federated States of)";
+map["PER"] = "Peru";
+map["REU"] = "Réunion";
+map["IDN"] = "Indonesia";
+map["VUT"] = "Vanuatu";
+map["MKD"] = "Macedonia (the former Yugoslav Republic of)";
+map["COD"] = "Congo (Democratic Republic of the)";
+map["COG"] = "Congo";
+map["ISL"] = "Iceland";
+map["GLP"] = "Guadeloupe";
+map["ETH"] = "Ethiopia";
+map["COM"] = "Comoros";
+map["COL"] = "Colombia";
+map["NGA"] = "Nigeria";
+map["TLS"] = "Timor-Leste";
+map["TWN"] = "]";
+map["PRT"] = "Portugal";
+map["MDA"] = "Moldova (Republic of)";
+map["GGY"] = "Guernsey";
+map["MDG"] = "Madagascar";
+map["ATA"] = "Antarctica";
+map["ECU"] = "Ecuador";
+map["SEN"] = "Senegal";
+map["ESH"] = "Western Sahara";
+map["MDV"] = "Maldives";
+map["ASM"] = "American Samoa";
+map["SPM"] = "Saint Pierre and Miquelon";
+map["CUW"] = "Curaçao";
+map["FRA"] = "France";
+map["LTU"] = "Lithuania";
+map["RWA"] = "Rwanda";
+map["ZMB"] = "Zambia";
+map["GMB"] = "Gambia";
+map["WLF"] = "Wallis and Futuna";
+map["JEY"] = "Jersey";
+map["FRO"] = "Faroe Islands";
+map["GTM"] = "Guatemala";
+map["DNK"] = "Denmark";
+map["IMN"] = "Isle of Man";
+map["MAF"] = "Saint Martin (French part)";
+map["AUS"] = "Australia";
+map["AUT"] = "Austria";
+map["SJM"] = "Svalbard and Jan Mayen";
+map["VEN"] = "Venezuela (Bolivarian Republic of)";
+map["PLW"] = "Palau";
+map["KEN"] = "Kenya";
+map["TUR"] = "Turkey";
+map["ALB"] = "Albania";
+map["OMN"] = "Oman";
+map["TUV"] = "Tuvalu";
+map["ALA"] = "Åland Islands";
+map["BRN"] = "Brunei Darussalam";
+map["TUN"] = "Tunisia";
+map["RUS"] = "Russian Federation";
+map["BRB"] = "Barbados";
+map["BRA"] = "Brazil";
+map["CIV"] = "Côte d'Ivoire";
+map["SRB"] = "Serbia";
+map["GNQ"] = "Equatorial Guinea";
+map["USA"] = "United States";
+map["QAT"] = "Qatar";
+map["WSM"] = "Samoa";
+map["AZE"] = "Azerbaijan";
+map["GNB"] = "Guinea-Bissau";
+map["SWZ"] = "Swaziland";
+map["TON"] = "Tonga";
+map["CAN"] = "Canada";
+map["UKR"] = "Ukraine";
+map["KOR"] = "Korea (Republic of)";
+map["AIA"] = "Anguilla";
+map["CAF"] = "Central African Republic";
+map["CHE"] = "Switzerland";
+map["CYP"] = "Cyprus";
+map["BIH"] = "Bosnia and Herzegovina";
+map["SGP"] = "Singapore";
+map["SGS"] = "South Georgia and the South Sandwich Islands";
+map["SOM"] = "Somalia";
+map["UZB"] = "Uzbekistan";
+map["CMR"] = "Cameroon";
+map["POL"] = "Poland";
+map["KWT"] = "Kuwait";
+map["ERI"] = "Eritrea";
+map["GAB"] = "Gabon";
+map["CYM"] = "Cayman Islands";
+map["ARE"] = "United Arab Emirates";
+map["EST"] = "Estonia";
+map["MWI"] = "Malawi";
+map["ESP"] = "Spain";
+map["IRQ"] = "Iraq";
+map["SLV"] = "El Salvador";
+map["MLI"] = "Mali";
+map["IRL"] = "Ireland";
+map["IRN"] = "Iran (Islamic Republic of)";
+map["ABW"] = "Aruba";
+map["SLE"] = "Sierra Leone";
+map["PAN"] = "Panama";
+map["SDN"] = "Sudan";
+map["SLB"] = "Solomon Islands";
+map["NZL"] = "New Zealand";
+map["MCO"] = "Monaco";
+map["ITA"] = "Italy";
+map["JPN"] = "Japan";
+map["KGZ"] = "Kyrgyzstan";
+map["UGA"] = "Uganda";
+map["NCL"] = "New Caledonia";
+map["PNG"] = "Papua New Guinea";
+map["ARG"] = "Argentina";
+map["SWE"] = "Sweden";
+map["BHS"] = "Bahamas";
+map["BHR"] = "Bahrain";
+map["ARM"] = "Armenia";
+map["NRU"] = "Nauru";
+map["CUB"] = "Cuba";
+
+d3.csv("static/traffic.csv", function(err, data) {
+
+  var config = {"data0":"Country","data1":"Count","label0":"label 0","label1":"label 1","color0":"#99ccff","color1":"#0050A1","width":800,"height":400}
+  
+  var width = 960,
+      height = 960;
+  
+  var COLOR_COUNTS = 9;
+  
+  function Interpolate(start, end, steps, count) {
+      var s = start,
+          e = end,
+          final = s + (((e - s) / steps) * count);
+      return Math.floor(final);
+  }
+  
+  function Color(_r, _g, _b) {
+      var r, g, b;
+      var setColors = function(_r, _g, _b) {
+          r = _r;
+          g = _g;
+          b = _b;
+      };
+  
+      setColors(_r, _g, _b);
+      this.getColors = function() {
+          var colors = {
+              r: r,
+              g: g,
+              b: b
+          };
+          return colors;
+      };
+  }
+  
+  function hexToRgb(hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+      } : null;
+  }
+  
+  function valueFormat(d) {
+    if (d > 1000000000) {
+      return Math.round(d / 1000000000 * 10) / 10 + "B";
+    } else if (d > 1000000) {
+      return Math.round(d / 1000000 * 10) / 10 + "M";
+    } else if (d > 1000) {
+      return Math.round(d / 1000 * 10) / 10 + "K";
+    } else {
+      return d;
+    }
+  }
+  
+  var COLOR_FIRST = config.color0, COLOR_LAST = config.color1;
+  
+  var rgb = hexToRgb(COLOR_FIRST);
+  
+  var COLOR_START = new Color(rgb.r, rgb.g, rgb.b);
+  
+  rgb = hexToRgb(COLOR_LAST);
+  var COLOR_END = new Color(rgb.r, rgb.g, rgb.b);
+  
+  var startColors = COLOR_START.getColors(),
+      endColors = COLOR_END.getColors();
+  
+  var colors = [];
+  
+  for (var i = 0; i < COLOR_COUNTS; i++) {
+    var r = Interpolate(startColors.r, endColors.r, COLOR_COUNTS, i);
+    var g = Interpolate(startColors.g, endColors.g, COLOR_COUNTS, i);
+    var b = Interpolate(startColors.b, endColors.b, COLOR_COUNTS, i);
+    colors.push(new Color(r, g, b));
+  }
+  
+  var MAP_KEY = config.data0;
+  var MAP_VALUE = config.data1;
+  
+  var projection = d3.geo.mercator()
+      .scale((width + 1) / 2 / Math.PI)
+      .translate([width / 2, height / 2])
+      .precision(.1);
+  
+  var path = d3.geo.path()
+      .projection(projection);
+  
+  var graticule = d3.geo.graticule();
+  
+  var svg = d3.select("#canvas-svg").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+  
+  svg.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path);
+  
+  var valueHash = {};
+  
+  function log10(val) {
+    return Math.log(val);
+  }
+  
+  data.forEach(function(d) {
+    valueHash[map[d[MAP_KEY]]] = d[MAP_VALUE];
+  });
+  
+  var quantize = d3.scale.quantize()
+      .domain([0, 1.0])
+      .range(d3.range(COLOR_COUNTS).map(function(i) { return i }));
+  
+  quantize.domain([d3.min(data, function(d){
+      return (+d[MAP_VALUE]) }),
+    d3.max(data, function(d){
+      return (+d[MAP_VALUE]) })]);
+  
+  d3.json("https://s3-us-west-2.amazonaws.com/vida-public/geo/world-topo-min.json", function(error, world) {
+    var countries = topojson.feature(world, world.objects.countries).features;
+  
+    svg.append("path")
+       .datum(graticule)
+       .attr("class", "choropleth")
+       .attr("d", path);
+  
+    var g = svg.append("g");
+  
+    g.append("path")
+     .datum({type: "LineString", coordinates: [[-180, 0], [-90, 0], [0, 0], [90, 0], [180, 0]]})
+     .attr("class", "equator")
+     .attr("d", path);
+  
+    var country = g.selectAll(".country").data(countries);
+  
+    country.enter().insert("path")
+        .attr("class", "country")
+        .attr("d", path)
+        .attr("id", function(d,i) { return d.id; })
+        .attr("title", function(d) { return d.properties.name; })
+        .style("fill", function(d) {
+          if (valueHash[d.properties.name]) {
+            var c = quantize((valueHash[d.properties.name]));
+            var color = colors[c].getColors();
+            return "rgb(" + color.r + "," + color.g +
+                "," + color.b + ")";
+          } else {
+            return "#ccc";
+          }
+        })
+        .on("mousemove", function(d) {
+            var html = "";
+  
+            html += "<div class=\"tooltip_kv\">";
+            html += "<span class=\"tooltip_key\">";
+            html += d.properties.name;
+            html += "</span>";
+            html += "<span class=\"tooltip_value\">";
+            html += (valueHash[d.properties.name] ? valueFormat(valueHash[d.properties.name]) : "");
+            html += "";
+            html += "</span>";
+            html += "</div>";
+            
+            $("#tooltip-container").html(html);
+            $(this).attr("fill-opacity", "0.8");
+            $("#tooltip-container").show();
+            
+            var coordinates = d3.mouse(this);
+            
+            var map_width = $('.choropleth')[0].getBoundingClientRect().width;
+            
+            if (d3.event.pageX < map_width / 2) {
+              d3.select("#tooltip-container")
+                .style("top", (d3.event.layerY + 15) + "px")
+                .style("left", (d3.event.layerX + 15) + "px");
+            } else {
+              var tooltip_width = $("#tooltip-container").width();
+              d3.select("#tooltip-container")
+                .style("top", (d3.event.layerY + 15) + "px")
+                .style("left", (d3.event.layerX - tooltip_width - 30) + "px");
+            }
+        })
+        .on("mouseout", function() {
+                $(this).attr("fill-opacity", "1.0");
+                $("#tooltip-container").hide();
+            });
+    
+    g.append("path")
+        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+        .attr("class", "boundary")
+        .attr("d", path);
+  });
+  
+  d3.select(self.frameElement).style("height", height + "px");
+});
+
+</script>
